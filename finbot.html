@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinBot - Your Financial Assistant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            height: 100vh;
+            background-color: #f0f4f8;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 20%;
+            background-color: #344955;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 20px;
+            color: #f9aa33;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #fff;
+            padding: 10px 15px;
+            background-color: #4a6572;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .menu a img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .menu a:hover {
+            background-color: #f9aa33;
+            color: #000;
+        }
+
+        .user-info {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-info img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        /* Main Content */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            padding: 10px 20px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #ddd;
+            font-size: 18px;
+            font-weight: bold;
+            background-color: #f9aa33;
+            color: #344955;
+        }
+
+        .chat-container {
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            overflow: hidden;
+        }
+
+        /* Chat History */
+        .chat-history {
+            width: 30%;
+            background-color: #ffffff;
+            border-right: 1px solid #ddd;
+            overflow-y: auto;
+        }
+
+        .chat-history h3 {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            background-color: #344955;
+            color: #fff;
+        }
+
+        .chat-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chat-item img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .chat-item:hover {
+            background-color: #f9f9f9;
+        }
+
+        /* Chat Window */
+        .chat-window {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+        }
+
+        .messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            max-width: 70%;
+        }
+
+        .message.user {
+            text-align: right;
+            background-color: #344955;
+            color: white;
+            margin-left: auto;
+        }
+
+        .message.bot {
+            text-align: left;
+            background-color: #f9aa33;
+            color: #000;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+            background-color: #4a6572;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .chat-input button {
+            padding: 10px 20px;
+            margin-left: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: #f9aa33;
+            color: #000;
+            cursor: pointer;
+        }
+
+        .chat-input button:hover {
+            background-color: #344955;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>FinBot</h2>
+        <div class="menu">
+            <a href="#"><img src="https://img.icons8.com/ios-filled/50/ffffff/chat--v1.png" alt="Chat"> Chat</a>
+            <a href="#"><img src="https://img.icons8.com/ios-filled/50/ffffff/report-card.png" alt="Insights"> Insights</a>
+            <a href="#"><img src="https://img.icons8.com/ios-filled/50/ffffff/analytics.png" alt="Analytics"> Analytics</a>
+            <a href="#"><img src="https://img.icons8.com/ios-filled/50/ffffff/settings.png" alt="Settings"> Settings</a>
+        </div>
+        <div class="user-info">
+            <img src="https://via.placeholder.com/50" alt="User">
+            <div>
+                <p>Utkarsh</p>
+                <small>Premium User</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="chat-header">Financial Insights</div>
+        <div class="chat-container">
+            <div class="chat-history">
+                <h3>Chat History</h3>
+                <div class="chat-item">
+                    <img src="https://img.icons8.com/ios-filled/50/000000/bank-building.png" alt="Bank">
+                    Bank Services
+                </div>
+                <div class="chat-item">
+                    <img src="https://img.icons8.com/ios-filled/50/000000/line-chart.png" alt="Investments">
+                    Investment Insights
+                </div>
+                <div class="chat-item">
+                    <img src="https://img.icons8.com/ios-filled/50/000000/money-bag.png" alt="Loans">
+                    Loan Queries
+                </div>
+            </div>
+
+            <div class="chat-window">
+                <div class="messages">
+                    <div class="message bot">Welcome to the FinBot! How can I assist you with your financial needs today?</div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" placeholder="Ask me anything about your finances..." id="user-input">
+                    <button onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const userInput = document.getElementById('user-input');
+            const messageContainer = document.querySelector('.messages');
+
+            if (userInput.value.trim() !== "") {
+                const userMessage = document.createElement('div');
+                userMessage.classList.add('message', 'user');
+                userMessage.textContent = userInput.value;
+                messageContainer.appendChild(userMessage);
+
+                // Simulating bot response (Replace with OpenAI API integration)
+                const botMessage = document.createElement('div');
+                botMessage.classList.add('message', 'bot');
+                botMessage.textContent = "Fetching insights...";
+                messageContainer.appendChild(botMessage);
+
+                setTimeout(() => {
+                    botMessage.textContent = "Here's the financial insight you need! (Integrate with OpenAI API)";
+                }, 1000);
+
+                userInput.value = "";
+                messageContainer.scrollTop = messageContainer.scrollHeight;
+            }
+        }
+    </script>
+</body>
+</html>
