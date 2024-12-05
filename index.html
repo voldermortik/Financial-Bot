@@ -82,12 +82,13 @@
 
         .chat-header {
             padding: 10px 20px;
-            background-color: #ffffff;
-            border-bottom: 1px solid #ddd;
-            font-size: 18px;
-            font-weight: bold;
             background-color: #f9aa33;
             color: #344955;
+            font-size: 18px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .chat-container {
@@ -214,7 +215,10 @@
     </div>
 
     <div class="main">
-        <div class="chat-header">Financial Insights</div>
+        <div class="chat-header">
+            Financial Insights
+            <button onclick="resetHistory()" style="background-color: #f9aa33; padding: 10px; border: none; border-radius: 5px; cursor: pointer; font-size: 14px;">Clear History</button>
+        </div>
         <div class="chat-container">
             <div class="chat-history">
                 <h3>Chat History</h3>
@@ -245,7 +249,15 @@
     </div>
 
     <script>
-        function sendMessage() {
+        let isFirstTurn = true;
+
+        function resetHistory() {
+            isFirstTurn = true;
+            const messages = document.querySelector('.messages');
+            messages.innerHTML = '<div class="message bot">Conversation history cleared. Ask me anything about finances!</div>';
+        }
+
+        async function sendMessage() {
             const userInput = document.getElementById('user-input');
             const messageContainer = document.querySelector('.messages');
 
@@ -255,15 +267,29 @@
                 userMessage.textContent = userInput.value;
                 messageContainer.appendChild(userMessage);
 
-                // Simulating bot response (Replace with OpenAI API integration)
                 const botMessage = document.createElement('div');
                 botMessage.classList.add('message', 'bot');
                 botMessage.textContent = "Fetching insights...";
                 messageContainer.appendChild(botMessage);
 
-                setTimeout(() => {
-                    botMessage.textContent = "Here's the financial insight you need! (Integrate with OpenAI API)";
-                }, 1000);
+                try {
+                    const response = await fetch(`http://54.90.39.211:8000/files/?question=${encodeURIComponent(userInput.value)}&clear_history=${isFirstTurn}`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    });
+
+                    if (response.ok) {
+                        const result = await response.text();
+                        botMessage.textContent = result;
+                        isFirstTurn = false;
+                    } else {
+                        botMessage.textContent = "Sorry, I couldn't fetch the data. Please try again.";
+                    }
+                } catch (error) {
+                    botMessage.textContent = "An error occurred: " + error.message;
+                }
 
                 userInput.value = "";
                 messageContainer.scrollTop = messageContainer.scrollHeight;
