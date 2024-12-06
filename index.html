@@ -273,7 +273,7 @@
                 messageContainer.appendChild(botMessage);
 
                 try {
-                    const response = await fetch(`/api/files/?question=${encodeURIComponent(userInput.value)}&clear_history=${isFirstTurn}`, {
+                    const response = await fetch(`http://52.91.125.14:8000/files/?question=${encodeURIComponent(userInput.value)}&clear_history=${isFirstTurn}`, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json",
